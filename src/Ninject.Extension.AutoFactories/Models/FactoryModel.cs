@@ -23,7 +23,7 @@ namespace Ninject.AutoFactories.Models
 
             InterfaceType = new MetadataTypeName(interfaceName);
             AccessModifier = AccessModifier.Internal;
-            InterfaceAccessModifier = AccessModifier.Public;
+            InterfaceAccessModifier = AccessModifier.Internal;
             Products = [];
         }
 
