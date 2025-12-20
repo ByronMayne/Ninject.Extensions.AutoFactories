@@ -123,5 +123,30 @@ namespace AutoFactories.Tests
                     }
                 }
                 """]);
+
+
+        [Fact]
+        public Task Static_Constructor_Is_Ignored()
+            => CaptureAsync(
+                notes: ["Static constructor should be ignored and only instance constructor should generate factory method"],
+                verifySource: ["Widgets.WidgetFactory"],
+                source: ["""
+                    using AutoFactories;
+
+                    namespace Widgets
+                    {
+                        [AutoFactory]
+                        public class Widget
+                        {
+                            static Widget()
+                            {
+                            }
+
+                            public Widget(string name)
+                            {
+                            }
+                        }
+                    }
+                """]);
     }
 }

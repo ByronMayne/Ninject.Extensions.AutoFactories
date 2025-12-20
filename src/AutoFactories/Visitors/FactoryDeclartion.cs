@@ -69,6 +69,7 @@ namespace AutoFactories.Visitors
                     .ToList(),
                 Methods = declaration.Classes
                     .SelectMany(c => c.Constructors)
+                    .Where(c => !c.IsStatic)
                     .Select(FactoryMethodViewModel.Map)
                     .ToList()
             };
