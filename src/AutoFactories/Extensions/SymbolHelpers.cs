@@ -34,6 +34,15 @@ namespace AutoFactories.Extensions
         {
             if (typeSymbol is INamedTypeSymbol namedType)
             {
+                // Unwrap `Nullable<T>` so it renders as `T?` instead of `Nullable<T>?` (which would be `Nullable<T?>`
+                // and produce CS0453). The trailing `?` is added by the type-reference template via IsNullable.
+                if (namedType.OriginalDefinition.SpecialType == SpecialType.System_Nullable_T
+                    && namedType.TypeArguments.Length == 1)
+                {
+                    MetadataTypeName inner = ResolveTypeName(namedType.TypeArguments[0]);
+                    return new MetadataTypeName(inner.Name, inner.Namespace, true, inner.IsAlias);
+                }
+
                 string name = typeSymbol.Name;
                 string @namespace = GetFullNamespace(namedType);
                 bool isNullable = typeSymbol.NullableAnnotation == NullableAnnotation.Annotated 

@@ -126,6 +126,26 @@ namespace AutoFactories.Tests
 
 
         [Fact]
+        public Task Factory_With_NullableStructParameter_EmitsValidSignature()
+            => CaptureAsync(
+                notes: ["Nullable<T> for a struct (e.g. `Id?`) must not emit `Nullable<T>?` (CS0453)."],
+                verifySource: ["Sample.WidgetSelectFactory"],
+                source: ["""
+                    using AutoFactories;
+
+                    namespace Sample
+                    {
+                        public struct Id { public int Value; }
+
+                        [AutoFactory]
+                        public class WidgetSelect
+                        {
+                            public WidgetSelect(Id? preselectedValue) { }
+                        }
+                    }
+                """]);
+
+        [Fact]
         public Task Static_Constructor_Is_Ignored()
             => CaptureAsync(
                 notes: ["Static constructor should be ignored and only instance constructor should generate factory method"],
