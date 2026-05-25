@@ -19,7 +19,7 @@ namespace City
         /// <summary>
         /// Creates a new instance of  <see cref="City.House"/>
         /// </summary>
-        public global::City.House Create(string address, global::System.Nullable<int>? unitNumber)
+        public global::City.House Create(string address, int? unitNumber)
         {
             global::City.House __result = new global::City.House(
              address,

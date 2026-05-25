@@ -19,7 +19,7 @@ namespace World
         /// <summary>
         /// Creates a new instance of  <see cref="World.Person"/>
         /// </summary>
-        public global::World.Person Create(global::System.Nullable<int>? age, string? name)
+        public global::World.Person Create(int? age, string? name)
         {
             global::World.Person __result = new global::World.Person(
              age,
