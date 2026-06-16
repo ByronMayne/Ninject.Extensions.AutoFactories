@@ -24,4 +24,18 @@
   <ImportGroup Condition="$(MSBuildProjectName.EndsWith('.Tests'))">
     <Import Project="Nuget.props"/>
   </ImportGroup>
+
+  <!--
+    SourceGenerator.Foundations (SGF_EmbedDependencies) embeds every referenced assembly as a resource.
+    The Roslyn assemblies (Microsoft.CodeAnalysis*, e.g. Microsoft.CodeAnalysis.dll and
+    Microsoft.CodeAnalysis.CSharp.dll) are provided by the compiler host at runtime, so embedding them
+    bloats the analyzer and risks loading a version that conflicts with the host. Remove those assemblies
+    while leaving the other embedded resources (such as the Handlebars templates) intact.
+  -->
+  <Target Name="RemoveCodeAnalyzers" AfterTargets="SGF_EmbedDependencies">
+    <ItemGroup>
+      <_EmbeddedCodeAnalysisAssembly Include="@(EmbeddedResource)" Condition="$([System.String]::Copy('%(FileName)').StartsWith('Microsoft.CodeAnalysis'))" />
+      <EmbeddedResource Remove="@(_EmbeddedCodeAnalysisAssembly)" />
+    </ItemGroup>
+  </Target>
 </Project>
