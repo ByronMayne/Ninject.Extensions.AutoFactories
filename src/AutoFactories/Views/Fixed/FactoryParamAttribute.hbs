@@ -1,0 +1,21 @@
+#nullable enable
+using System;
+
+namespace {{Type.Namespace}}
+{
+    /// <summary>
+    /// Applied to a parameter of a constructor to indicate this parameter
+    /// should be passed to the factory method by the caller. Parameters without
+    /// this attribute will be resolved from the dependency injection container.
+    /// </summary>
+    /// <remarks>
+    /// This is the inverse of <see cref="FromFactoryAttribute"/>. Using both
+    /// attributes in the same constructor is not allowed.
+    /// </remarks>
+    [AttributeUsage(AttributeTargets.Parameter, AllowMultiple = false)]
+    {{AccessModifier}} sealed class {{Type.Name}} : Attribute
+    {
+        public {{Type.Name}}()
+        {}
+    }
+}

@@ -52,6 +52,32 @@ namespace AutoFactories.Visitors
         /// </summary>
         public ClassDeclarationVisitor Class { get; }
 
+        /// <summary>
+        /// Gets the location of the constructor declaration
+        /// </summary>
+        public Location? Location { get; private set; }
+
+        /// <summary>
+        /// Gets whether this constructor uses <see cref="TypeNames.FactoryParamAttributeType"/> mode
+        /// to determine which parameters are required in the factory method.
+        /// <para>
+        /// There are two mutually exclusive modes for marking constructor parameters:
+        /// <list type="bullet">
+        ///   <item>
+        ///     <see cref="TypeNames.FromFactoryAttributeType"/> mode: parameters marked with
+        ///     the attribute are resolved from the DI container; all others are required in the factory method.
+        ///   </item>
+        ///   <item>
+        ///     <see cref="TypeNames.FactoryParamAttributeType"/> mode: parameters marked with
+        ///     the attribute are required in the factory method; all others are resolved from DI.
+        ///   </item>
+        /// </list>
+        /// If neither attribute is present on any parameter, all parameters are required.
+        /// Mixing both attributes in the same constructor produces a diagnostic error.
+        /// </para>
+        /// </summary>
+        public bool UsesFactoryParamMode { get; private set; }
+
         public ConstructorDeclarationVisitor(
             bool isAnalyzer, 
             ClassDeclarationVisitor classVisitor, 
@@ -72,6 +98,7 @@ namespace AutoFactories.Visitors
         {
             IsStatic = syntax.Modifiers.Any(m => m.IsKind(SyntaxKind.StaticKeyword));
             IsPrivate = syntax.Modifiers.Any(m => m.IsKind(SyntaxKind.PrivateKeyword));
+            Location = syntax.GetLocation();
 
             VisitParameters(syntax.ParameterList);
 
@@ -80,7 +107,27 @@ namespace AutoFactories.Visitors
             Accessibility = AccessModifier.MostRestrictive([
                  Accessibility,
                  ..m_parameters.Select(p => p.Accessibility)]);
+            
+            ValidateParameterAttributes();
+        }
 
+        private void ValidateParameterAttributes()
+        {
+            bool hasFromFactory = m_parameters.Any(p => p.HasFromFactoryAttribute);
+            bool hasFactoryParam = m_parameters.Any(p => p.HasFactoryParamAttribute);
+
+            if (hasFromFactory && hasFactoryParam)
+            {
+                AddDiagnostic(Diagnostics.ConflictingParameterAttributesDiagnostic.Get(this));
+            }
+
+            // Redundant, but easier to read
+            if (!hasFromFactory && !hasFactoryParam) {
+                UsesFactoryParamMode = false;
+                return;
+            }
+            
+            UsesFactoryParamMode = hasFactoryParam;
         }
 
         private void VisitParameters(ParameterListSyntax parametersList)

@@ -28,7 +28,7 @@ namespace AutoFactories.Visitors
                 .Where(c => !c.IsPrivate)
                 .Where(c => !c.IsStatic)
                 .SelectMany(c => c.Parameters)
-                .Where(p => p.HasMarkerAttribute)
+                .Where(ShouldBeDependencyInjectionParameter)
                 .ToList();
 
             Usings = classes.SelectMany(c => c.Usings)
@@ -53,6 +53,22 @@ namespace AutoFactories.Visitors
             foreach (IGrouping<MetadataTypeName, ClassDeclarationVisitor> grouping in classes.GroupBy(v => v.FactoryType))
             {
                 yield return new FactoryDeclaration(grouping.Key, grouping);
+            }
+        }
+
+        /// <summary>
+        /// Determines if a parameter should be a DI-injected field in the factory.
+        /// See <see cref="ConstructorDeclarationVisitor.UsesFactoryParamMode"/> for mode explanation.
+        /// </summary>
+        private static bool ShouldBeDependencyInjectionParameter(ParameterSyntaxVisitor parameter)
+        {
+            if (parameter.Constructor.UsesFactoryParamMode)
+            {
+                return !parameter.HasFactoryParamAttribute;
+            }
+            else
+            {
+                return parameter.HasFromFactoryAttribute;
             }
         }
 

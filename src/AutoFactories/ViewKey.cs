@@ -6,8 +6,9 @@ namespace AutoFactories
 {
     [Instance("Factory", "FactoryView")]
     [Instance("FactoryInterface", "FactoryInterfaceView")]
-    [Instance("ClassAttribute", "ClassAttribute")] 
-    [Instance("ParameterAttribute", "ParameterAttribute")]
+    [Instance("ClassAttribute", "ClassAttribute")]
+    [Instance("FromFactoryAttribute", "FromFactoryAttribute")]
+    [Instance("FactoryParamAttribute", "FactoryParamAttribute")]
     [ValueObject<string>(conversions: Conversions.None)]
     public readonly partial struct ViewKey
     {

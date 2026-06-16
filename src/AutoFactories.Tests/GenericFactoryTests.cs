@@ -168,5 +168,65 @@ namespace AutoFactories.Tests
                         }
                     }
                 """]);
+
+        [Fact]
+        public Task FactoryParam_Attribute_Marks_Required_Parameters()
+            => CaptureAsync(
+                notes: [
+                    "[FactoryParam] marks parameters that should be passed to the factory method.",
+                    "Parameters without [FactoryParam] should come from DI.",
+                    "'name' has [FactoryParam] so it appears in Create() method signature.",
+                    "'comparer' does NOT have [FactoryParam] so it becomes a DI-injected field."
+                ],
+                verifySource: ["Products.ProductFactory", "Products.IProductFactory"],
+                source: ["""
+                    using AutoFactories;
+                    using System.Collections.Generic;
+
+                    namespace Products
+                    {
+                        [AutoFactory]
+                        public class Product
+                        {
+                            public string Name { get; }
+
+                            public Product([FactoryParam] string name, IEqualityComparer<string?> comparer)
+                            {
+                                Name = name;
+                            }
+                        }
+                    }
+                """]);
+
+        [Fact]
+        public Task FactoryParam_Multiple_Parameters_Mixed()
+            => CaptureAsync(
+                notes: [
+                    "Multiple parameters with mixed [FactoryParam] usage.",
+                    "'name' and 'quantity' have [FactoryParam] - they appear in Create().",
+                    "'logger' and 'validator' do NOT have [FactoryParam] - they come from DI."
+                ],
+                verifySource: ["Orders.OrderFactory"],
+                source: ["""
+                    using AutoFactories;
+
+                    namespace Orders
+                    {
+                        public interface ILogger {}
+                        public interface IValidator {}
+
+                        [AutoFactory]
+                        public class Order
+                        {
+                            public Order(
+                                [FactoryParam] string name,
+                                ILogger logger,
+                                [FactoryParam] int quantity,
+                                IValidator validator)
+                            {
+                            }
+                        }
+                    }
+                """]);
     }
 }

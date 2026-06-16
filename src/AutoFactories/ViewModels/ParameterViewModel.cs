@@ -46,14 +46,28 @@ namespace AutoFactories.Models
         {
             Name = "";
         }
-
-
+        
+        /// <summary>
+        /// See <see cref="ConstructorDeclarationVisitor.UsesFactoryParamMode"/> for mode explanation.
+        /// </summary>
         public static ParameterViewModel Map(ParameterSyntaxVisitor visitor)
-            => new ParameterViewModel()
+        {
+            bool isRequired;
+            if (visitor.Constructor.UsesFactoryParamMode)
+            {
+                isRequired = visitor.HasFactoryParamAttribute;
+            }
+            else
+            {
+                isRequired = !visitor.HasFromFactoryAttribute;
+            }
+
+            return new ParameterViewModel()
             {
                 Name = visitor.Name?.ToCamelCase(),
                 Type = visitor.Type,
-                IsRequired = !visitor.HasMarkerAttribute
+                IsRequired = isRequired
             };
+        }
     }
 }

@@ -16,7 +16,24 @@ namespace AutoFactories.Visitors
 
         public string? Name { get; private set; }
         public MetadataTypeName Type { get; private set; }
-        public bool HasMarkerAttribute { get; private set; }
+
+        /// <summary>
+        /// Gets whether the parameter has the <see cref="TypeNames.FromFactoryAttributeType"/> attribute.
+        /// When true, this parameter will be resolved from the DI container.
+        /// </summary>
+        public bool HasFromFactoryAttribute { get; private set; }
+
+        /// <summary>
+        /// Gets whether the parameter has the <see cref="TypeNames.FactoryParamAttributeType"/> attribute.
+        /// When true, this parameter must be passed to the factory method by the caller.
+        /// </summary>
+        public bool HasFactoryParamAttribute { get; private set; }
+
+        /// <summary>
+        /// Gets whether the parameter has either marker attribute.
+        /// Kept for backwards compatibility.
+        /// </summary>
+        public bool HasMarkerAttribute => HasFromFactoryAttribute || HasFactoryParamAttribute;
 
         public AccessModifier Accessibility { get; private set; }
 
@@ -49,10 +66,11 @@ namespace AutoFactories.Visitors
                 typeSymbol = m_semanticModel.GetSymbolInfo(syntax.Type).Symbol as ITypeSymbol;
             }
 
-            AttributeSyntax? markerAttribute = GetMarkerAttribute(syntax);
+            MarkerAttributeResult markers = GetMarkerAttributes(syntax);
             Name = syntax.Identifier.Text;
-            HasMarkerAttribute = markerAttribute is not null;
-            AttributeLocation = markerAttribute?.GetLocation();
+            HasFromFactoryAttribute = markers.FromFactory is not null;
+            HasFactoryParamAttribute = markers.FactoryParam is not null;
+            AttributeLocation = markers.FromFactory?.GetLocation() ?? markers.FactoryParam?.GetLocation();
 
             if (typeSymbol is not null)
             {
@@ -83,8 +101,11 @@ namespace AutoFactories.Visitors
 
         }
 
-        private AttributeSyntax? GetMarkerAttribute(ParameterSyntax node)
+        private MarkerAttributeResult GetMarkerAttributes(ParameterSyntax node)
         {
+            AttributeSyntax? fromFactoryAttribute = null;
+            AttributeSyntax? factoryParamAttribute = null;
+
             foreach (AttributeListSyntax attributeList in node.AttributeLists)
             {
                 foreach (AttributeSyntax attribute in attributeList.Attributes)
@@ -96,13 +117,22 @@ namespace AutoFactories.Visitors
 
                     string displayString = typeSymbol.ToDisplayString();
 
-                    if (string.Equals(TypeNames.ParameterAttributeType.QualifiedName, displayString))
+                    if (string.Equals(TypeNames.FromFactoryAttributeType.QualifiedName, displayString))
                     {
-                        return attribute;
+                        fromFactoryAttribute = attribute;
+                    }
+                    else if (string.Equals(TypeNames.FactoryParamAttributeType.QualifiedName, displayString))
+                    {
+                        factoryParamAttribute = attribute;
                     }
                 }
             }
-            return null;
+
+            return new MarkerAttributeResult(fromFactoryAttribute, factoryParamAttribute);
         }
+
+        internal record MarkerAttributeResult(
+            AttributeSyntax? FromFactory,
+            AttributeSyntax? FactoryParam);
     }
 }

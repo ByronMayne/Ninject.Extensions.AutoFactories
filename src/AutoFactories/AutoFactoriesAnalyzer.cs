@@ -23,6 +23,7 @@ namespace AutoFactories
                 new InconsistentFactoryAccessibilityBuilder().Descriptor,
                 new ExposedAsNotDerivedTypeDiagnostic().Descriptor,
                 new UnresolvedParameterTypeDiagnostic().Descriptor,
+                new ConflictingParameterAttributesDiagnostic().Descriptor,
              ];
         }
 

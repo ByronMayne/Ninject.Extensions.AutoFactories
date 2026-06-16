@@ -90,7 +90,7 @@ namespace AutoFactories.Tests
                 using AutoFactories;
 
                 [AutoFactory]
-                public class Provider 
+                public class Provider
                 {
                     public Provider(IExternalType externalType)
                     {
@@ -100,5 +100,36 @@ namespace AutoFactories.Tests
                 assertAnalyzerResult:
                     d => d.Should().OnlyContain(d => d.Id == DiagnosticIdentifier.UnresolvedParameterType));
         }
+
+        [Fact]
+        public Task Conflicting_Attributes_FromFactory_And_FactoryParam()
+            => Compose("""
+                using AutoFactories;
+
+                [AutoFactory]
+                public class Widget
+                {
+                    public Widget([FromFactory] string name, [FactoryParam] int count)
+                    {
+                    }
+                }
+                """,
+                assertAnalyzerResult: d => d.Should()
+                    .OnlyContain(d => d.Id == DiagnosticIdentifier.ConflictingParameterAttributes));
+
+        [Fact]
+        public Task FactoryParam_Only_Produces_No_Error()
+            => Compose("""
+                using AutoFactories;
+
+                [AutoFactory]
+                public class Widget
+                {
+                    public Widget([FactoryParam] string name, int count)
+                    {
+                    }
+                }
+                """,
+                assertAnalyzerResult: d => d.Should().BeEmpty());
     }
 }

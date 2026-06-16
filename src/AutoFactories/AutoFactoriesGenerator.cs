@@ -84,11 +84,19 @@ namespace AutoFactories
 
 
             renderer.WritePage(
-                $"{TypeNames.ParameterAttributeType.QualifiedName}.g.cs",
-                ViewKey.ParameterAttribute, new GenericView()
+                $"{TypeNames.FromFactoryAttributeType.QualifiedName}.g.cs",
+                ViewKey.FromFactoryAttribute, new GenericView()
                 {
                     AccessModifier = TypeNames.AttributeAccessModifier,
-                    Type = TypeNames.ParameterAttributeType
+                    Type = TypeNames.FromFactoryAttributeType
+                });
+
+            renderer.WritePage(
+                $"{TypeNames.FactoryParamAttributeType.QualifiedName}.g.cs",
+                ViewKey.FactoryParamAttribute, new GenericView()
+                {
+                    AccessModifier = TypeNames.AttributeAccessModifier,
+                    Type = TypeNames.FactoryParamAttributeType
                 });
         }
 

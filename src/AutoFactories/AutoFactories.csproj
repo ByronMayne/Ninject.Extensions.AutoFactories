@@ -9,7 +9,8 @@
   <ItemGroup>
     <Content Include="$(OutputPath)\$(AssemblyName).dll" Pack="true" PackagePath="analyzers/dotnet/cs" Visible="false" />
     <EmbeddedResource Include="Views\Fixed\ClassAttribute.hbs" LogicalName="ClassAttribute.hbs" />
-    <EmbeddedResource Include="Views\Fixed\ParameterAttribute.hbs" LogicalName="ParameterAttribute.hbs" />
+    <EmbeddedResource Include="Views\Fixed\FromFactoryAttribute.hbs" LogicalName="FromFactoryAttribute.hbs" />
+    <EmbeddedResource Include="Views\Fixed\FactoryParamAttribute.hbs" LogicalName="FactoryParamAttribute.hbs" />
     <None Include="..\..\img\Icon.jpg">
       <Pack>True</Pack>
       <PackagePath>\</PackagePath>
