@@ -17,7 +17,7 @@
     <PackageReference Include="AutoInterface" />
     <PackageReference Include="Boxed.Mapping" Version="7.0.0" />
     <PackageReference Include="Microsoft.CodeAnalysis.Common" Version="4.9.2" />
-    <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="4.9.2" />
+    <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="4.9.2" PrivateAssets="all" ExcludeAssets="runtime"/>
     <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
     <PackageReference Include="CodeCasing" Version="3.0.3" />
     <PackageReference Include="Handlebars.Net" Version="2.1.6" />
@@ -42,6 +42,8 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Update="Handlebars.Net.Helpers.Humanizer" Version="2.4.7" />
+    <PackageReference Update="Microsoft.CodeAnalysis.Common" Version="5.3.0" />
+    <PackageReference Update="Microsoft.CodeAnalysis.CSharp" Version="5.3.0" />
     <PackageReference Update="NugetInsights.Connector" Version="1.0.*">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
