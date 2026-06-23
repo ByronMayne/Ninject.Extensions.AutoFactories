@@ -59,7 +59,7 @@ namespace AutoFactories.Diagnostics
         /// </summary>
         /// <returns></returns>
         protected virtual DiagnosticDescriptor CreateDescriptor()
-            => new DiagnosticDescriptor(Id, Title, MessageFormat, Category, Severity, true, Description);
+            => new DiagnosticDescriptor(Id.Value, Title, MessageFormat, Category, Severity, true, Description);
 
         protected static string FormatId(int number)
             => $"AF{number + 100}";
