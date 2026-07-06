@@ -1,10 +1,11 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <LangVersion>12</LangVersion>
     <EnforceExtendedAnalyzerRules>true</EnforceExtendedAnalyzerRules>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <PackageIcon>Icon.jpg</PackageIcon>
+    <EmitCompilerGeneratedFiles>true</EmitCompilerGeneratedFiles>
   </PropertyGroup>
   <ItemGroup>
     <Content Include="$(OutputPath)\$(AssemblyName).dll" Pack="true" PackagePath="analyzers/dotnet/cs" Visible="false" />
@@ -14,17 +15,9 @@
       <Pack>True</Pack>
       <PackagePath>\</PackagePath>
     </None>
-    <PackageReference Include="AutoInterface" />
-    <PackageReference Include="Boxed.Mapping" Version="7.0.0" />
-    <PackageReference Include="Microsoft.CodeAnalysis.Common" Version="4.9.2" />
-    <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="4.9.2" PrivateAssets="all" ExcludeAssets="runtime"/>
-    <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
-    <PackageReference Include="CodeCasing" Version="3.0.3" />
-    <PackageReference Include="Handlebars.Net" Version="2.1.6" />
-    <PackageReference Include="Handlebars.Net.Helpers.Humanizer" Version="2.4.5" />
-    <PackageReference Include="SourceGenerator.Foundations" />
-    <PackageReference Include="Vogen" Version="4.0.19" />
-    <PackageReference Update="AutoInterface" Version="2.4.0">
+    <PackageReference Include="Boxed.Mapping" Version="7.0.0" PrivateAssets="all" />
+    <PackageReference Include="Handlebars.Net" Version="2.1.6" PrivateAssets="all" />
+    <PackageReference Include="AutoInterface" Version="2.4.1">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
@@ -32,23 +25,15 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <!-- Bug Fix: https://github.com/ByronMayne/Ninject.Extensions.AutoFactories/issues/11 -->
-    <PackageReference Update="*" PrivateAssets="all" />
-  </ItemGroup>
-  <ItemGroup>
-    <PackageReference Update="CodeCasing" Version="4.0.5" />
-    <PackageReference Update="GitVersion.MsBuild" Version="6.1.0">
+    <PackageReference Include="CodeCasing" Version="4.0.5" />
+    <PackageReference Include="GitVersion.MsBuild" Version="6.1.0">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Update="Handlebars.Net.Helpers.Humanizer" Version="2.4.7" />
-    <PackageReference Update="Microsoft.CodeAnalysis.Common" Version="5.3.0" />
-    <PackageReference Update="Microsoft.CodeAnalysis.CSharp" Version="5.3.0" />
-    <PackageReference Update="NugetInsights.Connector" Version="1.0.*">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
-    <PackageReference Update="SourceGenerator.Foundations" Version="2.0.13" />
-    <PackageReference Update="Vogen" Version="7.0.3" />
+    <PackageReference Include="Handlebars.Net.Helpers.Humanizer" Version="2.4.7" />
+    <PackageReference Include="Microsoft.CSharp" Version="4.7.0" PrivateAssets="all" />
+    <PackageReference Include="Microsoft.CodeAnalysis.Common" Version="5.3.0" />
+    <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="5.3.0" />
+    <PackageReference Include="SourceGenerator.Foundations" Version="2.0.16" />
   </ItemGroup>
 </Project>

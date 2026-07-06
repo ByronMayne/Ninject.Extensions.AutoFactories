@@ -26,7 +26,7 @@ namespace AutoFactories.Tests
 
                 """,
                 assertAnalyzerResult: d => d.Should()
-                    .OnlyContain(d => d.Id == DiagnosticIdentifier.ExposedAsIsNotDerivedType));
+                    .OnlyContain(d => d.Id == DiagnosticIdentifier.ExposedAsIsNotDerivedType.Value));
 
 
         [Fact]
@@ -57,7 +57,7 @@ namespace AutoFactories.Tests
                     {}
                 }
                 """,
-                assertAnalyzerResult: d => d.Should().OnlyContain(d => d.Id == DiagnosticIdentifier.UnmarkedFactory));
+                assertAnalyzerResult: d => d.Should().OnlyContain(d => d.Id == DiagnosticIdentifier.UnmarkedFactory.Value));
 
         public Task PublicFactory_WithInternalClass_EmitsInconsistentFactoryAccessibility()
             => Compose($$"""
@@ -71,7 +71,7 @@ namespace AutoFactories.Tests
                 {}
                 """,
                 assertAnalyzerResult: d => d.Should()
-                .OnlyContain(d => d.Id == DiagnosticIdentifier.InconsistentFactoryAccessibility));
+                .OnlyContain(d => d.Id == DiagnosticIdentifier.InconsistentFactoryAccessibility.Value));
 
         [Fact]
         public Task Parameter_With_Unresolved_Type_EmitsUnresolvedParameterType()
@@ -98,7 +98,7 @@ namespace AutoFactories.Tests
                 }
                 """,
                 assertAnalyzerResult:
-                    d => d.Should().OnlyContain(d => d.Id == DiagnosticIdentifier.UnresolvedParameterType));
+                    d => d.Should().OnlyContain(d => d.Id == DiagnosticIdentifier.UnresolvedParameterType.Value));
         }
     }
 }
