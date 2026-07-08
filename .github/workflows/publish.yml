@@ -28,12 +28,18 @@ jobs:
         uses: ByronMayne/Shared.Actions/build_csharp@1.0.7
         with: 
           publish: false 
-          configuration: ${{ env.configuration }}
+          configuration: ${{ env.Configuration }}
           solutionOrProjectPath: ./src/${{ matrix.project.name }}/${{ matrix.project.name }}.csproj
+    # Get a short-lived NuGet API key
+      - name: NuGet login (OIDC → temp API key)
+        uses: NuGet/login@v1
+        id: login
+        with:
+          user: ${{ secrets.NUGET_USER }} 
       - name: Publish 
         uses: ByronMayne/Shared.Actions/publish_csharp_nuget@1.0.7
         with: 
           publish: true 
-          configuration: ${{ env.configuration }}
+          configuration: ${{ env.Configuration }}
           solutionOrProjectPath: ./src/${{ matrix.project.name }}/${{ matrix.project.name }}.csproj
-          nugetApiKey: ${{ secrets.NUGET_API_KEY }}
+          nugetApiKey: ${{ steps.login.outputs.NUGET_API_KEY }}
