@@ -2,7 +2,11 @@
   <PropertyGroup>
     <Description>
       $(Description)
-      Microsoft Dependency INjection: Changes the factory to use a Microsoft DI version of the project
+
+      Microsoft.Extensions.DependencyInjection integration: configures AutoFactories to generate
+      factories that resolve [FromFactory] parameters from an IServiceProvider, and adds extension
+      methods to register the generated factories and their interfaces with the built-in
+      Microsoft dependency injection container.
     </Description>
     <PackageIcon>Icon.jpg</PackageIcon>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>

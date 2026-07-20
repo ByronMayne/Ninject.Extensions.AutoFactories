@@ -2,7 +2,10 @@
   <PropertyGroup>
     <Description>
       $(Description)
-      Ninject: Changes the factory to use a Ninject version of the project
+
+      Ninject integration: configures AutoFactories to generate factories that resolve
+      [FromFactory] parameters from a Ninject IKernel, and adds extension methods to bind the
+      generated factories and their interfaces within your Ninject modules.
     </Description>
     <PackageIcon>Icon.jpg</PackageIcon>
   </PropertyGroup>
