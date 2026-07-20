@@ -1,8 +1,11 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <Description>
       $(Description)
-      Ninject: Changes the factory to use a Ninject version of the project
+
+      Ninject integration: configures AutoFactories to generate factories that resolve
+      [FromFactory] parameters from a Ninject IKernel, and adds extension methods to bind the
+      generated factories and their interfaces within your Ninject modules.
     </Description>
     <PackageIcon>Icon.jpg</PackageIcon>
   </PropertyGroup>
@@ -13,13 +16,13 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Ninject" Version="3.3.6" />
+    <PackageReference Include="Ninject" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\AutoFactories\AutoFactories.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Update="GitVersion.MsBuild" Version="6.1.0">
+    <PackageReference Update="GitVersion.MsBuild">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>

@@ -18,12 +18,13 @@ namespace AutoFactories
 
         public AutoFactoriesAnalyzer()
         {
-            SupportedDiagnostics = [
+            SupportedDiagnostics = new DiagnosticDescriptor[]
+            {
                 new UnmarkedFactoryDiagnostic().Descriptor,
                 new InconsistentFactoryAccessibilityBuilder().Descriptor,
                 new ExposedAsNotDerivedTypeDiagnostic().Descriptor,
                 new UnresolvedParameterTypeDiagnostic().Descriptor,
-             ];
+             }.ToImmutableArray();
         }
 
 

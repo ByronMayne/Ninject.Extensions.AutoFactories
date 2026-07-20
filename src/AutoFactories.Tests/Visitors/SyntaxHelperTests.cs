@@ -2,12 +2,6 @@
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
-using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace AutoFactories.Tests.Visitors
 {
@@ -47,7 +41,7 @@ namespace AutoFactories.Tests.Visitors
 
 
         private async Task ComposeAsync(
-            string? argumentSyntax  = null,
+            string? argumentSyntax = null,
             string[]? additionalSources = null,
             Action<AttributeArgumentSyntax, SemanticModel>? assert = null)
         {
