@@ -168,5 +168,65 @@ namespace AutoFactories.Tests
                         }
                     }
                 """]);
+
+        [Fact]
+        public Task Shared_Factory_Merges_Duplicate_Type_FromFactory_Parameters()
+            => CaptureAsync(
+                notes: ["Two classes sharing a factory with the same [FromFactory] type should emit a single merged field"],
+                verifySource: ["World.Factory"],
+                source: ["""
+                    using AutoFactories;
+                    using System.Collections.Generic;
+
+                    namespace World
+                    {
+                        public partial class Factory
+                        {}
+
+                        [AutoFactory(typeof(Factory))]
+                        public class Person
+                        {
+                            public Person(string name, [FromFactory] IEqualityComparer<string> comparer)
+                            {}
+                        }
+
+                        [AutoFactory(typeof(Factory))]
+                        public class Robot
+                        {
+                            public Robot(int id, [FromFactory] IEqualityComparer<string> comparer)
+                            {}
+                        }
+                    }
+                    """]);
+
+        [Fact]
+        public Task Shared_Factory_Gives_Unique_Names_To_Conflicting_FromFactory_Parameters()
+            => CaptureAsync(
+                notes: ["Two classes sharing a factory with same-named but different-typed [FromFactory] parameters should get unique fields"],
+                verifySource: ["World.Factory"],
+                source: ["""
+                    using AutoFactories;
+                    using System.Collections.Generic;
+
+                    namespace World
+                    {
+                        public partial class Factory
+                        {}
+
+                        [AutoFactory(typeof(Factory))]
+                        public class Person
+                        {
+                            public Person(string name, [FromFactory] IEqualityComparer<string> service)
+                            {}
+                        }
+
+                        [AutoFactory(typeof(Factory))]
+                        public class Robot
+                        {
+                            public Robot(int id, [FromFactory] IComparer<string> service)
+                            {}
+                        }
+                    }
+                    """]);
     }
 }

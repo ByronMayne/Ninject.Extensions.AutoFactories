@@ -1,4 +1,6 @@
-﻿{{#each Parameters }}
-        private readonly {{> ToTypeReference Type}} m_{{Name}};{{#if @Last}}
+﻿{{#if Parameters }}
+{{#each Parameters }}
+        private readonly {{> ToTypeReference Type}} m_{{Name}};
+{{/each}}
 
-{{/if}}{{/each}}
+{{/if}}
