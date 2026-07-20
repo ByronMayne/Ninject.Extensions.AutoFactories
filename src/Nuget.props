@@ -3,7 +3,7 @@
     <Title>Auto Factories</Title>
     <Authors>Byron Mayne</Authors>
     <PackageReadmeFile>README.md</PackageReadmeFile>
-    <PackageLicenseFile>LICENSE.md</PackageLicenseFile>
+    <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <RepositoryUrl>https://github.com/ByronMayne/AutoFactories</RepositoryUrl>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <RepositoryType>git</RepositoryType>

@@ -1,5 +1,4 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-
   <PropertyGroup>
     <LangVersion>12</LangVersion>
     <EnforceExtendedAnalyzerRules>true</EnforceExtendedAnalyzerRules>
@@ -15,25 +14,22 @@
       <Pack>True</Pack>
       <PackagePath>\</PackagePath>
     </None>
-    <PackageReference Include="Boxed.Mapping" Version="7.0.0" PrivateAssets="all" />
-    <PackageReference Include="Handlebars.Net" Version="2.1.6" PrivateAssets="all" />
-    <PackageReference Include="AutoInterface" Version="2.4.1">
+    <PackageReference Include="Boxed.Mapping" PrivateAssets="all" />
+    <PackageReference Include="Handlebars.Net" PrivateAssets="all" />
+    <PackageReference Include="AutoInterface">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Nullable" Version="1.3.1">
+    <PackageReference Include="Nullable">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="CodeCasing" Version="4.0.5" />
-    <PackageReference Include="GitVersion.MsBuild" Version="6.1.0">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
-    <PackageReference Include="Handlebars.Net.Helpers.Humanizer" Version="2.4.7" />
-    <PackageReference Include="Microsoft.CSharp" Version="4.7.0" PrivateAssets="all" />
-    <PackageReference Include="Microsoft.CodeAnalysis.Common" Version="5.3.0" />
-    <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="5.3.0" />
-    <PackageReference Include="SourceGenerator.Foundations" Version="2.0.16" />
+    <PackageReference Include="CodeCasing" />
+    <PackageReference Include="Handlebars.Net.Helpers.Humanizer" />
+    <PackageReference Include="Microsoft.CSharp" PrivateAssets="all" />
+    <PackageReference Include="SourceGenerator.Foundations" />
+    <!-- We pin the version [4.7.0] to ensure compatibility with Visual Studio 2022 -->
+    <PackageReference Include="Microsoft.CodeAnalysis.Common" PrivateAssets="all" />
+    <PackageReference Include="Microsoft.CodeAnalysis.CSharp" PrivateAssets="all" />
   </ItemGroup>
 </Project>

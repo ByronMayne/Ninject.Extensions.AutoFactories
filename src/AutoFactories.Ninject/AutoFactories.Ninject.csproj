@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <Description>
       $(Description)
@@ -13,13 +13,13 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Ninject" Version="3.3.6" />
+    <PackageReference Include="Ninject" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\AutoFactories\AutoFactories.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Update="GitVersion.MsBuild" Version="6.1.0">
+    <PackageReference Update="GitVersion.MsBuild">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>

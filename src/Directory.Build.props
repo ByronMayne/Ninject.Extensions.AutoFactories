@@ -6,6 +6,7 @@
     <IncludeBuildOutput>false</IncludeBuildOutput>
     <GitVersionTargetFramework>net8.0</GitVersionTargetFramework>
     <NoWarn>$(NoWarn);NU5128</NoWarn>
+    <SuppressDependenciesWhenPacking>true</SuppressDependenciesWhenPacking>
   </PropertyGroup>
   <ItemGroup>
     <!-- Auto Include Content -->
@@ -13,15 +14,15 @@
     <None Include="$(MSBuildThisFileDirectory)..\LICENSE" Pack="True" PackagePath="/" Visible="false" />
     <None Include="$(MSBuildThisFileDirectory)AutoFactories.nuget.props" Pack="True" PackagePath="buildTransitive/$(MSBuildProjectName).props" Visible="false" />
     <None Include="$(MSBuildThisFileDirectory)AutoFactories.nuget.targets" Pack="True" PackagePath="buildTransitive/$(MSBuildProjectName).targets" Visible="false" />
-    <None Include="Views/**" Pack="True" PackagePath="Views"/>
+    <None Include="Views/**" Pack="True" PackagePath="Views" />
     
     <!-- Shared References -->
-    <PackageReference Include="GitVersion.MsBuild" Version="6.0.2">
+    <PackageReference Include="GitVersion.MsBuild">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
   </ItemGroup>
-  <ImportGroup Condition="$(MSBuildProjectName.EndsWith('.Tests'))">
-    <Import Project="Nuget.props"/>
+  <ImportGroup Condition="!$(MSBuildProjectName.EndsWith('.Tests'))">
+    <Import Project="Nuget.props" />
   </ImportGroup>
 </Project>
